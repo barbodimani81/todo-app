@@ -6,14 +6,117 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Task Detail</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the task details */
+        .task-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Title styling */
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff8a00;
+            padding-bottom: 10px;
+        }
+
+        /* Author and status styling */
+        small {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        /* Description styling */
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        /* Horizontal line styling */
+        hr {
+            border: none;
+            border-top: 2px solid #ff8a00;
+            margin: 20px 0;
+            opacity: 0.6;
+        }
+
+        /* Done status styling */
+        .status {
+            font-size: 16px;
+            font-weight: bold;
+            color: {{ object.done|yesno:'green:red' }}; /* Display green for done, red for not done */
+        }
+
+        /* Button styling */
+        .back-button {
+            background-color: #ff8a00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #ff6f00;
+            transform: scale(1.05);
+        }
+
+        .back-button:active {
+            background-color: #e65c00;
+            transform: scale(1);
+        }
+    </style>
 </head>
 <body>
-    <h1>title: {{object.title}}</h1>
+
+    <!-- Task container for task details -->
+    <div class="task-container">
+        <h1>Title: {{ object.title }}</h1>
         <hr>
-    <small>author: {{object.author}}</small>
+        <small>Author: {{ object.author }}</small>
         <hr>
-    <p>description: {{object.description}}</p>
+        <p>Description: {{ object.description }}</p>
         <hr>
-    <small>status: {{ object.done }}</small>
+        <small class="status">Status: {{ object.done|yesno:'Done:Not Done' }}</small>
+
+        <!-- Button to go back to task list -->
+        <button class="back-button" onclick="goBack()">Back to Tasks</button>
+    </div>
+
+    <script>
+        // JavaScript for back button
+        function goBack() {
+            window.history.back();  // Navigate back to the previous page
+        }
+    </script>
+
 </body>
 </html>

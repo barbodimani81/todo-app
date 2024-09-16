@@ -2,16 +2,179 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
+    <style>
+        /* General styles for body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        /* Styling for the task list */
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+        }
+
+        hr {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        /* Button styling */
+        .detail-btn, .update-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .detail-btn:hover, .update-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .detail-btn:active, .update-btn:active {
+            background-color: #004494;
+            transform: translateY(0);
+        }
+
+        /* Pagination styling */
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .step-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .step-links a:hover {
+            background-color: #e9ecef;
+        }
+
+        .current {
+            font-weight: bold;
+            color: #555;
+            padding: 8px 16px;
+        }
+
+        /* Button styling for creating a task */
+        .create-task-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+        }
+
+        .create-task-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .create-task-btn:active {
+            background-color: #1e7e34;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-{% for task in tasks %}
-<h2>{{task.title}}</h2>
-<p>author: {{task.author}}</p>
-    <hr>
-{%endfor%}
+
+    <!-- Loop through tasks and display them -->
+    {% for task in tasks %}
+        <div class="task-item">
+            <h2>{{ task.title }}</h2>
+            <p>Author: {{ task.author }}</p>
+            <a href="{% url 'todo:task-detail' task.id %}" class="detail-btn">View Details</a>
+            <a href="{% url 'todo:task-update' task.id %}" class="update-btn">Update Task</a>
+            <hr>
+        </div>
+    {% endfor %}
+
+    <!-- Pagination links -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- Button to redirect to createtaskview with styling -->
+    <div style="margin-top: 20px;">
+        <form action="{% url 'todo:create' %}" method="get" id="createTaskForm">
+            <button type="submit" class="create-task-btn" id="createTaskButton">Create New Task</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for button interaction
+        const createButton = document.getElementById('createTaskButton');
+        const createForm = document.getElementById('createTaskForm');
+
+        createForm.addEventListener('submit', function() {
+            createButton.disabled = true;  // Disable button after click to prevent multiple submissions
+            createButton.innerHTML = 'Loading...';  // Change button text to indicate loading state
+        });
+
+        // JS to handle smooth scrolling to pagination
+        document.querySelectorAll('.pagination a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Prevent the smooth scroll from breaking page navigation
+                const href = this.getAttribute('href');
+                
+                // Simulate smooth scrolling effect to top
+                window.scroll({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+
+                // Redirect to the page link
+                window.location.href = href;
+            });
+        });
+    </script>
+
 </body>
 </html>
