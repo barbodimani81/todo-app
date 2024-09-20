@@ -1,17 +1,33 @@
-# from django import forms
-# from django.contrib.auth import authenticate
+# from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+#
+# from .models import User
 #
 #
-# class EmailAuthenticationForm(forms.Form):
-#     email = forms.EmailField()
-#     password = forms.CharField(widget=forms.PasswordInput)
+# class CustomUserCreationForm(UserCreationForm):
 #
-#     def clean(self):
-#         email = self.cleaned_data.get('email')
-#         password = self.cleaned_data.get('password')
+#     class Meta:
+#         model = User
+#         fields = ("email",)
 #
-#         if email and password:
-#             user = authenticate(username=email, password=password)
-#             if user is None:
-#                 raise forms.ValidationError("Invalid login")
-#         return self.cleaned_data
+#
+# class CustomUserChangeForm(UserChangeForm):
+#
+#     class Meta:
+#         model = User
+#         fields = ("email",)
+from django import forms
+from .models import User, Profile
+
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ['email', 'password']  # Add fields you need
+
+
+class ProfileRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'description']

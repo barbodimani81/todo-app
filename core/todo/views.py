@@ -15,7 +15,7 @@ from .models import Task
 #         return context
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(CreateView, LoginRequiredMixin):
     model = Task
     form_class = TaskForm
     success_url = '/todo/tasks'
@@ -25,7 +25,7 @@ class TaskCreateView(CreateView):
         return super().form_valid(form)
 
 
-class TaskListView(ListView):
+class TaskListView(ListView, LoginRequiredMixin, PermissionRequiredMixin):
     model = Task
     context_object_name = 'tasks'
     template_name = 'todo/task_list.html'

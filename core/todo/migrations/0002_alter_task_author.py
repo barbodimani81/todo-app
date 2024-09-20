@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='author',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile'),
         ),
     ]
