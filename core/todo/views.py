@@ -25,7 +25,7 @@ class TaskCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class TaskListView(ListView, LoginRequiredMixin, PermissionRequiredMixin):
+class TaskListView(ListView, LoginRequiredMixin):
     model = Task
     context_object_name = 'tasks'
     template_name = 'todo/task_list.html'
