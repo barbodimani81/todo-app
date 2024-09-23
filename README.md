@@ -31,16 +31,16 @@ This is a simple Todo application built with Django, utilizing Class-Based Views
 Main URLs
 
 	•	Admin Panel: /admin/
-	•	User Login: / (GET: Show login form)
-	•	User Registration: /register/ (GET: Show registration form)
-	•	User Logout: /logout/
+	•	User Login: /localhost/
+	•	User Registration: /localhost/register/
+	•	User Logout: /localhost/logout/
 
 Todo URLs
 
 	•	Task List: /todo/tasks/
-	•	Create Task: /todo/ (POST: Create a new task)
-	•	Task Detail: /todo/tasks/<int:pk>/ (GET: View task details)
-	•	Update Task: /todo/tasks/<int:pk>/update/ (POST: Update a task)
-	•	Delete Task: /todo/tasks/<int:pk>/delete/ (POST: Delete a task)
+	•	Create Task: /todo/
+	•	Task Detail: /todo/tasks/<int:pk>/
+	•	Update Task: /todo/tasks/<int:pk>/update/
+	•	Delete Task: /todo/tasks/<int:pk>/delete/
 
 You can access these URLs by navigating to http://localhost:8000 followed by the route (e.g., http://localhost:8000/register/ for registration).
