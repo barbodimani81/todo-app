@@ -33,3 +33,9 @@ class ProfileRegistrationForm(forms.ModelForm):
             user.save()
             profile.save()
         return user, profile
+
+
+class CustomLoginForm(forms.Form):
+    email = forms.EmailField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
+

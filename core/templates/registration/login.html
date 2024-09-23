@@ -1,114 +1,48 @@
-{% extends 'base.html' %}
-
-{% block title %} Login {% endblock %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f8f9fa;
         }
-
         .container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            margin-top: 100px;
             max-width: 400px;
-            text-align: center;
         }
-
         h2 {
-            color: #333;
-            margin-bottom: 1rem;
+            margin-bottom: 20px;
         }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        label {
-            font-size: 14px;
-            color: #555;
-            text-align: left;
-            margin-bottom: 0.5rem;
-        }
-
-        input[type="text"], input[type="password"] {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            width: 100%;
-        }
-
-        button {
+        .btn-custom {
             background-color: #007bff;
             color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            background-color: #004494;
-            transform: translateY(0);
-        }
-
-        p {
-            margin-top: 1rem;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
-        <form method="post" action="{% url 'accounts:login' %}">
+        <h2 class="text-center">Login to Your Account</h2>
+        <form method="post" enctype="multipart/form-data" class="bg-white p-4 border rounded shadow">
             {% csrf_token %}
-            <div>
-                <label for="id_username">Username:</label>
-                <input type="text" id="id_username" name="username" required>
+            <div class="form-group">
+                {{ form.as_p }}
             </div>
-            <div>
-                <label for="id_password">Password:</label>
-                <input type="password" id="id_password" name="password" required>
+            <button type="submit" class="btn btn-custom btn-block">Login</button>
+            <div class="text-center mt-3">
+                <a href="#" class="text-muted">Forgot your password?</a>
             </div>
-            <button type="submit">Login</button>
         </form>
-{#        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>#}
+        <div class="text-center mt-3">
+<p class="text-muted">Don't have an account? <a href="{% url 'accounts:register' %}">Sign up here</a></p>        </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

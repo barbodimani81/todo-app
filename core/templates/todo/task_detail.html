@@ -2,36 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* General body styling */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #f0f4f8;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 40px;
         }
 
-        /* Container for the task details */
         .task-container {
             background-color: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            width: 100%;
-            text-align: center;
+            margin: auto;
         }
 
-        /* Title styling */
         h1 {
             font-size: 28px;
             color: #333;
@@ -40,7 +30,6 @@
             padding-bottom: 10px;
         }
 
-        /* Author and status styling */
         small {
             display: block;
             font-size: 14px;
@@ -48,7 +37,6 @@
             margin: 10px 0;
         }
 
-        /* Description styling */
         p {
             font-size: 18px;
             line-height: 1.6;
@@ -56,22 +44,12 @@
             margin: 20px 0;
         }
 
-        /* Horizontal line styling */
-        hr {
-            border: none;
-            border-top: 2px solid #ff8a00;
-            margin: 20px 0;
-            opacity: 0.6;
-        }
-
-        /* Done status styling */
         .status {
             font-size: 16px;
             font-weight: bold;
-            color: {{ object.done|yesno:'green:red' }}; /* Display green for done, red for not done */
+            color: {{ object.done|yesno:'green:red' }};
         }
 
-        /* Button styling */
         .back-button {
             background-color: #ff8a00;
             color: white;
@@ -97,24 +75,18 @@
 </head>
 <body>
 
-    <!-- Task container for task details -->
     <div class="task-container">
-        <h1>Title: {{ object.title }}</h1>
-        <hr>
+        <h1>{{ object.title }}</h1>
         <small>Author: {{ object.author }}</small>
-        <hr>
         <p>Description: {{ object.description }}</p>
-        <hr>
-        <small class="status">Status: {{ object.done|yesno:'Done:Not Done' }}</small>
-
-        <!-- Button to go back to task list -->
+        <small class="status">Status: {{ object.done|yesno:'Done,Not Done' }}</small>
+        
         <button class="back-button" onclick="goBack()">Back to Tasks</button>
     </div>
 
     <script>
-        // JavaScript for back button
         function goBack() {
-            window.history.back();  // Navigate back to the previous page
+            window.history.back();
         }
     </script>
 

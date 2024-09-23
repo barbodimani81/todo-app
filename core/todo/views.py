@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from .forms import TaskForm
 from .models import Task
@@ -41,7 +41,7 @@ class TaskDetailView(DetailView):
         return Task.objects.all()
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(UpdateView, LoginRequiredMixin):
     model = Task
     form_class = TaskForm
     success_url = '/todo/tasks/'
@@ -50,3 +50,7 @@ class TaskUpdateView(UpdateView):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
 
+
+class TaskDeleteView(DeleteView, LoginRequiredMixin):
+    model = Task
+    success_url = '/todo/tasks/'
