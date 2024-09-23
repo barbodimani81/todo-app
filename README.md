@@ -1,91 +1,46 @@
-# Django Todo Project
+# Django Todo App
 
-## Project Overview
+This is a simple Todo application built with Django, utilizing Class-Based Views (CBV) for its functionality. The app allows users to register, log in, and manage their tasks.
 
-This is a Django-based Todo application that allows users to create, view, and update tasks. The project uses Docker for containerization to simplify development and deployment.
+## Table of Contents
 
-## Prerequisites
+- [Features](#features)
+- [Installation](#installation)
+- [Docker Setup](#docker-setup)
+- [URL Configuration](#url-configuration)
+- [License](#license)
 
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [Python](https://www.python.org/) (for local development, optional)
+## Features
 
-## Setup and Installation
+- User registration and login
+- Create, view, update, and delete tasks
+- Admin interface for managing users and tasks
+- Responsive and user-friendly interface
 
-1. **Clone the repository:**
+## Installation
 
-    ```bash
-    git clone https://github.com/barbodimani81/todo-app.git
-    cd your-repo
-    ```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/barbodimani81/event.git
+   cd event
+   
+2. Docker Setup:
+   ```bash
+   docker-compose up --build
 
-2. **Build and run the Docker containers:**
+Main URLs
 
-    ```bash
-    docker-compose up --build
-    ```
+	•	Admin Panel: /admin/
+	•	User Login: / (GET: Show login form)
+	•	User Registration: /register/ (GET: Show registration form)
+	•	User Logout: /logout/
 
-    This command builds the Docker images and starts the containers.
+Todo URLs
 
-## Usage
+	•	Task List: /todo/tasks/
+	•	Create Task: /todo/ (POST: Create a new task)
+	•	Task Detail: /todo/tasks/<int:pk>/ (GET: View task details)
+	•	Update Task: /todo/tasks/<int:pk>/update/ (POST: Update a task)
+	•	Delete Task: /todo/tasks/<int:pk>/delete/ (POST: Delete a task)
 
-- **Access the Admin Interface:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
-- **Todo Tasks List:** [http://localhost:8000/todo/tasks/](http://localhost:8000/todo/tasks/)
-- **Create a Task:** [http://localhost:8000/todo/](http://localhost:8000/todo/)
-- **Task Details:** [http://localhost:8000/todo/tasks/<task_id>/](http://localhost:8000/todo/tasks/<task_id>/)
-- **Update a Task:** [http://localhost:8000/todo/tasks/<task_id>/update/](http://localhost:8000/todo/tasks/<task_id>/update/)
-
-## Docker Setup
-
-1. **Dockerfile**: Defines the environment for the Django application.
-
-2. **docker-compose.yml**: Configures the services required to run the application, including the web service and database.
-
-    Example `docker-compose.yml`:
-
-    ```yaml
-    version: '3.8'
-
-    services:
-      web:
-        image: django:latest
-        command: python manage.py runserver 0.0.0.0:8000
-        volumes:
-          - .:/app
-        ports:
-          - "8000:8000"
-        depends_on:
-          - db
-
-      db:
-        image: postgres:latest
-        environment:
-          POSTGRES_DB: todo_db
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-        volumes:
-          - pg_data:/var/lib/postgresql/data
-
-    volumes:
-      pg_data:
-    ```
-
-## URL Configuration
-
-### Main Project `urls.py`
-
-```python
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('todo/', include('todo.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+You can access these URLs by navigating to http://localhost:8000 followed by the route (e.g., http://localhost:8000/register/ for registration).
