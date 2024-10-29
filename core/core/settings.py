@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     # my apps:
     'accounts.apps.AccountsConfig',
     'todo.apps.TodoConfig',
+
+    # trusted apps:
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +89,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -141,3 +144,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}

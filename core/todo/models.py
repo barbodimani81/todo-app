@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Task(models.Model):
@@ -9,3 +10,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_relative_url(self):
+        return reverse("todo:task-detail", kwargs={"pk": self.pk})
+
