@@ -1,7 +1,13 @@
 asgiref==3.8.1
 decouple==0.0.7
 Django==3.2.25
+django-filter==21.1
+djangorestframework==3.12.4
+importlib_metadata==8.5.0
+Markdown==3.3.7
 pillow==10.4.0
+PyMySQL==1.1.1
 pytz==2024.1
 sqlparse==0.5.1
 typing_extensions==4.12.2
+zipp==3.20.2
